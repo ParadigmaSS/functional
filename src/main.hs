@@ -1,4 +1,1 @@
-module Main (imprimeBoneco) where
-
-main = do
-  imprimeBoneco
+import boneco
