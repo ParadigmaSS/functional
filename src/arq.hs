@@ -1,8 +1,7 @@
 import System.IO
 
 main :: IO ()
---main = do h <- openFile "test.txt" ReadMode 
-main = do h <- openFile "unb.ppm" ReadMode 
+main = do h <- openFile "teste.ppm" ReadMode 
           xs <- getlines h
           sequence_ $ map putStrLn xs
 
