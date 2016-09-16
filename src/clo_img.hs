@@ -12,6 +12,11 @@ applyNegative [] = []
 -- Modify the header of list and pass to the tail list
 applyNegative (h:t) = [h - 255] ++ (applyNegative t)
 
+
+-- Print in file
+grava = do
+  writeFile "saida.txt" "teste \n"
+
 -- Function its start the program
 main :: IO ()
 main = do
