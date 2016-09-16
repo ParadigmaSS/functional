@@ -9,7 +9,9 @@ using namespace std;
 int main() {
 
   string image_name;
+
   cin >> image_name;
+  image_name = "../images/" + image_name + ".ppm";
   ifstream in_image(image_name.c_str());
   if(in_image.is_open()) { 
   // Read the reader of the file.
