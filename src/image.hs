@@ -4,10 +4,10 @@ import Data.List
 
 -- Function which gets the path of image
 getImagePath :: FilePath
-getImagePath = "unb.ppm"
+getImagePath = "imagem.ppm"
 
 getImageFilterPath :: FilePath
-getImageFilterPath = "filterunb.ppm"
+getImageFilterPath = "imagefilter.ppm"
 
 -- Function which applies the negative filter on image
 applyNegative :: [Int] -> [Int]
@@ -17,20 +17,20 @@ applyNegative [] = []
 applyNegative (h:t) = h - 255 : (applyNegative t)
 
 transformListToString :: [Int] -> String
-transformListToString  lista = concat $ map show lista
+transformListToString [] = ""
+transformListToString (h:t) = show h ++ " " ++ (transformListToString t)
 
 -- Function its start the program
 main :: IO ()
 main = do
 	-- Read the image file
 	imageFile <- readFile getImagePath
-	let header = take 20 imageFile
+	let header = lines $ take 20 imageFile
 	let imageData = drop 20 imageFile
 	-- Convert the image data to a list of ints
 	let intList = map read $ words imageData :: [Int]
 	let imageFilterData = applyNegative intList
 	let imageFilterString = words (transformListToString imageFilterData)
-	let filterData = intercalate " " imageFilterString 
-	let imageFilter = header ++ filterData
+	let imageFilter = unlines $ (header ++ imageFilterString)
 	imageFilterFile <- writeFile getImageFilterPath imageFilter
-	putStrLn $ show imageFilterString
+	putStrLn $ show (unlines header)
