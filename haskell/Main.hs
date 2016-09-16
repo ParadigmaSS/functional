@@ -29,4 +29,5 @@ main = do
 	let diff = (fromIntegral (end - start)) / (10 ^ 12) 
 	imageFilterFile <- recordImage imageFilter
 	putStrLn "Filtro Aplicado"
-	printf "Tempo Computacional: %0.6f segundos\n" (diff :: Double)
+	--printf "Tempo Computacional: %0.6f segundos\n" (diff :: Double)S
+	putStrLn $ show diff
