@@ -4,7 +4,7 @@ import Data.List
 
 -- Function which gets the path of image
 getImagePath :: FilePath
-getImagePath = "imagem.ppm"
+getImagePath = "unb.ppm"
 
 getImageFilterPath :: FilePath
 getImageFilterPath = "imagefilter.ppm"
@@ -14,7 +14,7 @@ applyNegative :: [Int] -> [Int]
 -- Verify if list is empty
 applyNegative [] = []
 -- Modify the header of list and pass to the tail list
-applyNegative (h:t) = h - 255 : (applyNegative t)
+applyNegative (h:t) = 255 - h : (applyNegative t)
 
 transformListToString :: [Int] -> String
 transformListToString [] = ""
