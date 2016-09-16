@@ -1,4 +1,5 @@
 import System.IO
+import Data.Array.IO
 
 -- Function which applies the negative filter on image                      
 applyNegative :: [Int] -> [Int]
@@ -21,5 +22,6 @@ mainloop inh outh =
        if ineof
            then return ()
            else do inpStr <- hGetLine inh
-                   hPutStrLn outh inpStr
+                   --hPutStrLn outh inpStr
+                   hPutArray outh inpStr
                    mainloop inh outh
