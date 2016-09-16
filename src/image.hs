@@ -4,8 +4,8 @@ import System.CPUTime
 import Text.Printf
 
 -- Function which gets the path of image
-getImagePath :: FilePath
-getImagePath = "big_image.ppm"
+getImagePath :: String -> FilePath
+getImagePath namePath = namePath
 
 getImageFilterPath :: FilePath
 getImageFilterPath = "imagefilter.ppm"
@@ -26,17 +26,19 @@ main :: IO ()
 main = do
 	putStrLn "Começando Aplicacao de Filtro!"
 	-- Read the image file
-	imageFile <- readFile getImagePath
+	putStr "Digite o caminho da imagem: "
+	namePath <- getLine
+	imageFile <- readFile (getImagePath namePath)
+	start <- getCPUTime
 	let header = lines $ take 20 imageFile
 	let imageData = drop 20 imageFile
 	-- Convert the image data to a list of ints
 	let intList = map read $ words imageData :: [Int]
-	start <- getCPUTime
 	let imageFilterData = applyNegative intList
-	end <- getCPUTime
-	let diff = (fromIntegral (end - start)) / (10 ^ 12) 
 	let imageFilterString = words (transformListToString imageFilterData)
 	let imageFilter = unlines $ (header ++ imageFilterString)
+	end <- getCPUTime
+	let diff = (fromIntegral (end - start)) / (10 ^ 12) 
 	imageFilterFile <- writeFile getImageFilterPath imageFilter
 	putStrLn "Filtro Aplicado"
-	printf "Tempo Computacional: %0.7f segundos\n" (diff :: Double)
+	printf "Tempo Computacional: %0.6f segundos\n" (diff :: Double)
